@@ -1,0 +1,15 @@
+
+FROM roborio:latest
+
+RUN opkg update && \
+    opkg install binutils-symlinks gcc-symlinks g++-symlinks libgcc-s-dev make libstdc++-dev
+
+# This forces the machine to armv7l by hooking uname
+# -> strictly speaking, we could just set _PYTHON_HOST_PLATFORM ... 
+COPY libfakearmv7l.so /usr/local/lib/libfakearmv7l.so
+RUN chmod +x /usr/local/lib/libfakearmv7l.so && \
+    mkdir -p /home/admin/.ssh && \ 
+    echo "LD_PRELOAD=/usr/local/lib/libfakearmv7l.so" >> /home/admin/.ssh/environment && \
+    echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
+
+# Note above that we have to configure the ssh server to allow setting

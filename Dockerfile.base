@@ -1,0 +1,12 @@
+
+FROM roborio:tmp
+
+COPY _entrypoint.sh /entrypoint.sh
+
+# Fixes issues with the original RoboRIO image
+RUN mkdir -p /var/volatile/tmp && \
+    mkdir -p /var/volatile/cache && \
+    mkdir -p /var/volatile/log && \
+    mkdir -p /var/run/sshd
+
+ENTRYPOINT ["/entrypoint.sh"]
