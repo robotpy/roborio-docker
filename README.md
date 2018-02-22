@@ -5,7 +5,13 @@ This repository contains scripts that are useful for transforming a RoboRIO
 firmware image into a docker image that can be ran on an ARM computer (it
 will not work on a normal PC).
 
-This process has been tested on an ODROID-C2.
+This process has been tested on an ODROID-C2 (Ubuntu 16.04) with Docker 1.13.1
+installed. However, any Linux OS on a compatible ARM processor that runs docker
+should work.
+
+This docker image most likely cannot be used to run an unmodified FIRST
+robot program on it, because WPILib requires access to the NI FPGA present on
+the RoboRIO.
 
 Build image from firmware image
 -------------------------------
@@ -33,7 +39,7 @@ an SSH server that listens on port 2222. Some magic is done to:
 * Use LD_PRELOAD to install a uname hook that reports the host being 'armv7l'
 
 To ssh into this docker image, you'll want to add something like this to your
-~/.ssh/config 
+~/.ssh/config
 
     Host roborio-docker
       User root
