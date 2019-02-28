@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SSH_PORT=${SSH_PORT-:2222}
-TAG=${TAG-:latest}
-NAME=${NAME-:roborio-docker}
+SSH_PORT=${SSH_PORT:-2222}
+TAG=${TAG:-latest}
+NAME=${NAME:-roborio-docker}
 
 docker run -d --name ${NAME} --hostname ${NAME} \
     -p ${SSH_PORT}:22 \
